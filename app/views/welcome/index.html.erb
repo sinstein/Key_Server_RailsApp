@@ -1,0 +1,24 @@
+<h1>Key Server</h1>
+
+<table>
+  <tr>
+    <td>
+      <%= button_to 'Generate', "keys#create", :class => 'btn',
+                method: :create %>
+    </td>
+    <td>
+      <%= button_to 'Get Key', block_keys_path , :class => 'btn',        method: :get %>
+    </td>
+  </tr>
+</table>
+
+<%= form_for :key, url: process_request_keys_path  do |f| %>
+  <p><%= f.text_field :value %></p>
+  <%= radio_button_tag(:request, "unblock") %>
+  <%= label_tag(:req_unblock, "Unblock") %>
+  <%= radio_button_tag(:request, "delete") %>
+  <%= label_tag(:req_delete, "Delete") %>
+  <%= radio_button_tag(:request, "keep_alive") %>
+  <%= label_tag(:req_keep_alive, "Keep Alive") %>
+  <%= f.submit %>
+<% end %>
