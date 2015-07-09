@@ -6,8 +6,6 @@ Rails.application.routes.draw do
       get 'keep_alive'
       get 'unblock'
       post 'delete'
-      post 'destroy'
-      post 'process_request'
     end
   end
 

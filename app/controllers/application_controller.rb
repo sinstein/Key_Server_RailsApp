@@ -4,9 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def check_existence
-    @given_key = params[:key][:value].strip
-    if(!Key.exists?(:value => @given_key))
-      redirect_to root_path, alert: "Invalid Key!"
+    if(params[:key])
+      @given_key = params[:key][:value].strip
+      if(!Key.exists?(:value => @given_key))
+        redirect_to root_path, alert: "Invalid Key!"
+      end
+    else
+      redirect_to root_path
     end
   end
 
