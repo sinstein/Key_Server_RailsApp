@@ -11,7 +11,8 @@ Rails.application.routes.draw do
 
   get 'welcome/index'
   root 'welcome#index'
-
+  get '/keys/unblock/:key', to: "keys#unblock"
+  get '/keys/keep_alive/:key', to: "keys#keep_alive"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
