@@ -7,18 +7,22 @@
                 method: :create %>
     </td>
     <td>
-      <%= button_to 'Get Key', block_keys_path , :class => 'btn',        method: :get %>
+      <%= button_to 'Get Key', block_keys_path , :class => 'btn', method: :get %>
     </td>
   </tr>
 </table>
 
-<%= form_for :key, url: process_request_keys_path  do |f| %>
-  <p><%= f.text_field :value %></p>
-  <%= radio_button_tag(:request, "unblock") %>
-  <%= label_tag(:req_unblock, "Unblock") %>
-  <%= radio_button_tag(:request, "delete") %>
-  <%= label_tag(:req_delete, "Delete") %>
-  <%= radio_button_tag(:request, "keep_alive") %>
-  <%= label_tag(:req_keep_alive, "Keep Alive") %>
-  <%= f.submit %>
+<p><%= form_for :key, url: delete_keys_path do |f| %>
+  <%= f.text_field :value %>
+  <%= f.submit "Delete"%>
 <% end %>
+
+<%= form_for :key, url: unblock_keys_path, :html => {:method => :get} do |f| %>
+  <%= f.text_field :value %>
+  <%= button_to "Unblock", method: :get %>
+<% end %>
+
+<%= form_for :key, url: keep_alive_keys_path, :html => {:method => :get}  do |f| %>
+  <%= f.text_field :value %>
+  <%= f.submit "Keep Alive"%>
+<% end %></p>

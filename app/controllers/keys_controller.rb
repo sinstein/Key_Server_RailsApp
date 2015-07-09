@@ -1,4 +1,5 @@
 class KeysController < ApplicationController
+before_action :check_existence, except: [:block, :create]
 def index
   redirect_to root_path
 end
@@ -27,63 +28,31 @@ def block
   end
 end
 
-def process_request
-  @given_key = params[:key][:value]
-  @chosen_op = params[:request]
-  if(@chosen_op.nil?)
-    redirect_to root_path, alert: "Please choose request type!"
-  else
-    case @chosen_op
-    when "unblock"
-       redirect_to unblock_keys_path({value: @given_key}) and return
-    when "delete"
-       redirect_to delete_keys_path({value: @given_key}) and return
-    when "keep_alive"
-       redirect_to keep_alive_keys_path({value: @given_key}) and return
-    end
-  end
-end
-
 def unblock
-  #debugger
-  @given_key = params[:value]
+  @given_key = params[:key][:value]
   @given_key.strip!
-  if(Key.exists?(:value => @given_key))
-    @key = Key.find(Key.where(:value => @given_key).first.id)
-    if(@key.block_time == 0)
-      redirect_to root_path, alert: "Key #{@key.value} is not blocked."
-    else
-      @key.update_column(:block_time, 0)
-      redirect_to root_path, notice: "Key #{@key.value} has been unblocked."
-    end
+  @key = Key.find(Key.where(:value => @given_key).first.id)
+  if(@key.block_time == 0)
+    redirect_to root_path, alert: "Key #{@key.value} is not blocked."
   else
-    redirect_to root_path, alert: "Invalid Key"
+    @key.update_column(:block_time, 0)
+    redirect_to root_path, notice: "Key #{@key.value} has been unblocked."
   end
 end
 
 def keep_alive
-  #debugger
-  if(Key.exists?(:value => params[:value]))
-    @key = Key.where(:value => params[:value]).first
-    @key.update_column(:alive_time, Time.now.to_i)
-    redirect_to root_path, notice: "Keep alive key: #{@key.value} "
-  else
-    redirect_to root_path, alert: "Invlid Key"
-  end
+  @given_key = params[:key][:value]
+  @given_key.strip!
+  @key = Key.where(:value => @given_key).first
+  @key.update_column(:alive_time, Time.now.to_i)
+  redirect_to root_path, notice: "Keep alive key: #{@key.value} "
 end
 
 def delete
-  #debugger
-  if(Key.exists?(:value => params[:value]))
-    #debugger
-    Key.where(:value => params[:value]).first.destroy
-    redirect_to root_path, notice: "Key deleted!"
-  else
-    redirect_to root_path, alert: "Invalid Key"
-  end
-end
-
-def update
+  @given_key = params[:key][:value]
+  @given_key.strip!
+  Key.where(:value => @given_key).first.destroy
+  redirect_to root_path, notice: "Key deleted!"
 end
 
 end

@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   resources :keys do
     collection do
       get 'block'
-      get 'delete'
       get 'keep_alive'
       get 'unblock'
+      post 'delete'
+      post 'destroy'
       post 'process_request'
     end
   end
