@@ -1,4 +1,6 @@
 Access endpoints via url:
 
-Unblock: localhost:port/keys/unblock?key=<key_value>
-Keep Alive: localhost:port/keys/keep_alive?key=<key_value>
+*UNBLOCK <key_value>*: localhost:port/keys/unblock?key=<key_value>
+
+
+*Keep Alive <key_value>*: localhost:port/keys/keep_alive?key=<key_value>
