@@ -1,28 +1,6 @@
-== README
+Access endpoints via url:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+*UNBLOCK <key_value>*: localhost:port/keys/unblock?key=<key_value>
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+*Keep Alive <key_value>*: localhost:port/keys/keep_alive?key=<key_value>
