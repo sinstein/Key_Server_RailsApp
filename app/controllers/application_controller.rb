@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
 
   def check_existence
     if(params[:key])
-      @given_key = params[:key][:value].strip
+      if(params[:key].is_a? String)
+        @given_key = params[:key].strip
+      else
+        @given_key = params[:key][:value].strip
+      end
       if(!Key.exists?(:value => @given_key))
         redirect_to root_path, alert: "Invalid Key!"
       end
